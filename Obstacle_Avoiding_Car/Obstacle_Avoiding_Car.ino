@@ -61,14 +61,14 @@ void loop()
     delay(500);
 
     //Read left side distance using ultrasonic sensor
-    int distanceLeft = mySensor.ping_cm();    
+    int distanceRight = mySensor.ping_cm();
 
     //Rotate servo to right
     myServo.write(0);    
     delay(500);    
 
     //Read right side distance using ultrasonic sensor   
-    int distanceRight = mySensor.ping_cm();
+    int distanceLeft = mySensor.ping_cm();    
 
     //Bring servo to center
     myServo.write(90); 
@@ -106,6 +106,14 @@ void loop()
 
 void rotateMotor(int rightMotorSpeed, int leftMotorSpeed)
 {
+  // In my case, I have motor speed issues. The speed of the motors did not match.
+  // For this reason, I add leftMotorError, rightMotorError.
+  int leftMotorError = 0; // 
+  int rightMotorError = 13;
+  // I am extracting the value of this variable manually. I see that the motor on the right side is slow here.
+  // After I increase the value of this variable to 13, the speed of the motors is equal.
+  // So, Here is error 13 in my case.
+
   if (rightMotorSpeed < 0)
   {
     digitalWrite(rightMotorPin1,LOW);
@@ -128,6 +136,7 @@ void rotateMotor(int rightMotorSpeed, int leftMotorSpeed)
     digitalWrite(leftMotorPin2,LOW);      
   }
 
-  analogWrite(enableRightMotor, abs(rightMotorSpeed));
-  analogWrite(enableLeftMotor, abs(leftMotorSpeed));    
+  // Add the error value to the speed to equalize the speed of the motors.
+  analogWrite(enableRightMotor, abs(rightMotorSpeed) + leftMotorError );
+  analogWrite(enableLeftMotor, abs(leftMotorSpeed) + rightMotorError );    
 }
