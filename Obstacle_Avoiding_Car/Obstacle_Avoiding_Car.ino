@@ -108,7 +108,7 @@ void rotateMotor(int rightMotorSpeed, int leftMotorSpeed)
 {
   // In my case, I have motor speed issues. The speed of the motors did not match.
   // For this reason, I add leftMotorError, rightMotorError.
-  int leftMotorError = 0; // 
+  int leftMotorError = 0;
   int rightMotorError = 13;
   // I am extracting the value of this variable manually. I see that the motor on the right side is slow here.
   // After I increase the value of this variable to 13, the speed of the motors is equal.
